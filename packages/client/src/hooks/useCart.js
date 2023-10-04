@@ -42,6 +42,7 @@ const reducer = (state, action) => {
         cart: nextCart,
         itemCount: state.itemCount + 1,
         cartTotal: calculateCartTotal(nextCart),
+        quantity: state.quantity + 1,
       };
     case "REMOVE_ITEM":
       nextCart = nextCart
