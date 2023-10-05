@@ -1,8 +1,10 @@
+Cody helped me
+
 # se-mern-ecommerce-app
 
 ## Run Client/Server for Development
 
-First, install all of the dependencies.  You should only need to do this once.
+First, install all of the dependencies. You should only need to do this once.
 
 ```
 npm install
