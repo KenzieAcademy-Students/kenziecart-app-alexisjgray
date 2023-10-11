@@ -1,4 +1,4 @@
-import React, { useReducer, useContext, createContext } from "react";
+import React, { useReducer, useContext, createContext, useEffect } from "react";
 
 const initialState = {
   cart: [],
@@ -37,13 +37,14 @@ const reducer = (state, action) => {
         nextCart.push(action.payload);
       }
 
-      return {
+      var newCart = {
         ...state,
         cart: nextCart,
-        itemCount: state.itemCount + 1,
+        itemCount: state.itemCount + numItemsToAdd,
         cartTotal: calculateCartTotal(nextCart),
-        quantity: state.quantity + 1,
       };
+      localStorage.setItem("KenzieCart", JSON.stringify(newCart));
+      return newCart;
     case "REMOVE_ITEM":
       nextCart = nextCart
         .map((item) =>
@@ -53,23 +54,31 @@ const reducer = (state, action) => {
         )
         .filter((item) => item.quantity > 0);
 
-      return {
+      var newCart = {
         ...state,
         cart: nextCart,
         itemCount: state.itemCount > 0 ? state.itemCount - 1 : 0,
         cartTotal: calculateCartTotal(nextCart),
       };
+      localStorage.setItem("KenzieCart", JSON.stringify(newCart));
+      return newCart;
     case "REMOVE_ALL_ITEMS":
       let quantity = state.cart.find((i) => i._id === action.payload).quantity;
-      return {
+
+      var newCart = {
         ...state,
         cart: state.cart.filter((item) => item._id !== action.payload),
         itemCount: state.itemCount > 0 ? state.itemCount - quantity : 0,
       };
+      localStorage.setItem("KenzieCart", JSON.stringify(newCart));
+      return newCart;
     case "RESET_CART":
+      localStorage.clear();
       return { ...initialState };
     default:
       return state;
+    case "INIT_SAVED_CART":
+      return action.payload;
   }
 };
 
@@ -132,16 +141,16 @@ const useProvideCart = () => {
     return !!state.cart.find((item) => item._id === id);
   };
 
-  /*  Check for saved local cart on load and dispatch to set initial state
+  // Check for saved local cart on load and dispatch to set initial state
   useEffect(() => {
-    const savedCart = JSON.parse(localStorage.getItem('KenzieCart')) || false
+    const savedCart = JSON.parse(localStorage.getItem("KenzieCart")) || false;
     if (savedCart) {
       dispatch({
-        type: 'INIT_SAVED_CART',
+        type: "INIT_SAVED_CART",
         payload: savedCart,
-      })
+      });
     }
-  }, [dispatch]) */
+  }, [dispatch]);
 
   return {
     state,
