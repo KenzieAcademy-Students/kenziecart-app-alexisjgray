@@ -1,4 +1,7 @@
 Cody helped me
+https://www.educba.com/bootstrap-toggle-button/
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed
+https://getbootstrap.com/docs/5.1/forms/checks-radios/
 
 # se-mern-ecommerce-app
 
