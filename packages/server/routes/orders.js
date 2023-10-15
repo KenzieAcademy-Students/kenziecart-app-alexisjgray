@@ -18,6 +18,7 @@ router
     const {
       customerDetails: { firstName, lastName, email, address1, address2 },
       items,
+      couponCode,
       orderTotal,
     } = req.body;
     const itemIdList = items.map((i) => i._id);
@@ -28,6 +29,7 @@ router
       customerAddress2: address2,
       items: itemIdList,
       orderTotal: orderTotal,
+      couponCode,
     };
     try {
       /* create new order using Order model

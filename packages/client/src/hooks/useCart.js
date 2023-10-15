@@ -4,12 +4,15 @@ const initialState = {
   cart: [],
   itemCount: 0,
   cartTotal: 0,
+  coupon: null,
 };
 
-export const calculateCartTotal = (cartItems) => {
+export const calculateCartTotal = (cartItems, discount = 0) => {
   let total = 0;
 
   cartItems.map((item) => (total += item.price * item.quantity));
+
+  total -= total * discount;
 
   return parseFloat(total.toFixed(2));
 };
@@ -79,6 +82,20 @@ const reducer = (state, action) => {
       return state;
     case "INIT_SAVED_CART":
       return action.payload;
+    case "APPLY_COUPON": {
+      return {
+        ...state,
+        coupon: action.payload,
+        cartTotal: calculateCartTotal(nextCart, action.payload.discount),
+      };
+    }
+    case "REMOVE_COUPON": {
+      return {
+        ...state,
+        coupon: null,
+        cartTotal: calculateCartTotal(nextCart),
+      };
+    }
   }
 };
 
@@ -137,6 +154,13 @@ const useProvideCart = () => {
     });
   };
 
+  const applyCoupon = (coupon) => {
+    dispatch({
+      type: "APPLY_COUPON",
+      payload: coupon,
+    });
+  };
+
   const isItemInCart = (id) => {
     return !!state.cart.find((item) => item._id === id);
   };
@@ -159,6 +183,7 @@ const useProvideCart = () => {
     removeAllItems,
     resetCart,
     isItemInCart,
+    applyCoupon,
   };
 };
 

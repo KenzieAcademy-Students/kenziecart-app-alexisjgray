@@ -23,6 +23,10 @@ const orderSchema = new mongoose.Schema(
         ref: "Product",
       },
     ],
+    couponCode: {
+      type: ObjectId,
+      ref: "CouponCodes",
+    },
     orderTotal: {
       type: Number,
       required: true,
