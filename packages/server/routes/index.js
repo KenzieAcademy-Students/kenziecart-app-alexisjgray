@@ -3,7 +3,7 @@ import authRouter from "./auth";
 import userRouter from "./users";
 import ordersRouter from "./orders";
 import productRouter from "./products";
-import couponCodesRouter from "./couponCodes";
+import couponCodeRouter from "./couponCodes";
 
 const router = express.Router();
 
@@ -15,6 +15,6 @@ router.use("/auth", authRouter);
 router.use("/users", userRouter);
 router.use("/orders", ordersRouter);
 router.use("/products", productRouter);
-router.use("/couponCodes", couponCodesRouter);
+router.use("/couponCodes", couponCodeRouter);
 
 module.exports = router;

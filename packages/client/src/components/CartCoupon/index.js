@@ -1,11 +1,10 @@
-import { Container, Row, Col, Form } from "react-bootstrap";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import "./CartCoupon.scss";
 import { useState } from "react";
-import { Button } from "react-bootstrap";
 import { verifyCoupon } from "utils/axiosService";
 import { toast } from "react-toastify";
 
-const CartCoupon = ({ couponCodes, applyCoupon }) => {
+const CartCoupon = ({ coupon, applyCoupon }) => {
   const [code, setCode] = useState("");
   const [codeAccepted, setCodeAccepted] = useState();
 
@@ -30,13 +29,13 @@ const CartCoupon = ({ couponCodes, applyCoupon }) => {
               type="text"
               name="code"
               value={code}
-              placeholder="Disscount Code"
+              placeholder="Discount Code"
               isInvalid={codeAccepted === false}
               onChange={(e) => setCode(e.target.value)}
             />
           ) : (
             <span>
-              {couponCodes.code}({couponCodes.discount * 100}% OFF)
+              {coupon.code}({coupon.discount * 100}% OFF)
             </span>
           )}
         </Col>

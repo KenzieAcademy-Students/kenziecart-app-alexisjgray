@@ -45,10 +45,7 @@ const CartSidebarView = () => {
 
       {state.cart.length > 0 && (
         <div className="cart-checkout">
-          <CartCoupon
-            couponCodes={state.couponCodes}
-            applyCoupon={applyCoupon}
-          />
+          <CartCoupon couponCodes={state.coupon} applyCoupon={applyCoupon} />
           <CartSummary cartTotal={state.cartTotal} />
           <CheckoutBox
             handleShopping={handleClose}
